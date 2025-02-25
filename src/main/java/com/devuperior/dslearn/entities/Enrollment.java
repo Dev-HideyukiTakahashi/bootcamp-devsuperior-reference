@@ -1,12 +1,15 @@
 package com.devuperior.dslearn.entities;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.devuperior.dslearn.entities.pk.EnrollmentPK;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +26,9 @@ public class Enrollment {
   private Instant refundMoment;
   private boolean available;
   private boolean onlyUpdate;
+
+  @ManyToMany(mappedBy = "enrollmentsDone")
+  private final Set<Lesson> lessonsDone = new HashSet<>();
 
   public Enrollment() {
   }
@@ -83,6 +89,10 @@ public class Enrollment {
 
   public void setOnlyUpdate(boolean onlyUpdate) {
     this.onlyUpdate = onlyUpdate;
+  }
+
+  public Set<Lesson> getLessonsDone() {
+    return lessonsDone;
   }
 
   @Override
