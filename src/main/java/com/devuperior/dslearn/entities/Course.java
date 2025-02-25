@@ -1,9 +1,13 @@
 package com.devuperior.dslearn.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +20,9 @@ public class Course {
   private String name;
   private String imgUrl;
   private String imgGrayUri;
+
+  @OneToMany(mappedBy = "course")
+  private final List<Offer> offers = new ArrayList<>();
 
   public Course() {
   }
@@ -67,6 +74,10 @@ public class Course {
     return result;
   }
 
+  public List<Offer> getOffers() {
+    return offers;
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -83,5 +94,4 @@ public class Course {
       return false;
     return true;
   }
-
 }
