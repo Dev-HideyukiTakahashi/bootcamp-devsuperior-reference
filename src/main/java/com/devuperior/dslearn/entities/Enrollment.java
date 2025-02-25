@@ -1,7 +1,9 @@
 package com.devuperior.dslearn.entities;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.devuperior.dslearn.entities.pk.EnrollmentPK;
@@ -10,6 +12,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +32,9 @@ public class Enrollment {
 
   @ManyToMany(mappedBy = "enrollmentsDone")
   private final Set<Lesson> lessonsDone = new HashSet<>();
+
+  @OneToMany(mappedBy = "enrollment")
+  private final List<Deliver> deliveries = new ArrayList<>();
 
   public Enrollment() {
   }
@@ -93,6 +99,10 @@ public class Enrollment {
 
   public Set<Lesson> getLessonsDone() {
     return lessonsDone;
+  }
+
+  public List<Deliver> getDeliveries() {
+    return deliveries;
   }
 
   @Override
